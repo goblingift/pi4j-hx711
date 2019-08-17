@@ -36,16 +36,14 @@ public class Hx711 {
         this.pinDT = pinDT;
         this.loadCellMaxWeight = loadCellMaxWeight;
         this.ratedOutput = ratedOutput;
-
         this.gain = gainFactor.getGain();
         pinSCK.setState(PinState.LOW);
-        tareOffset = readValue();
-        
-        System.out.println("Initialized Hx711-sensor. Tare value is: " + tareOffset);
     }
     
     /**
      * Measures the current load of the scale. (Tare offset will be subtracted)
+     * Warning! Be sure that you´ve set the tare value before- otherwise your result 
+     * will be faulty.
      * @return the load in grams (g).
      */
     public long measure() {
@@ -85,6 +83,19 @@ public class Hx711 {
         System.out.println("Read value from sensor: " + count);
         
         return count;
+    }
+    
+    /**
+     * Measures the current value of the load-cell and set this as tare-value.
+     * Warning: By executing this method, you will set the empty value for this
+     * load cell!
+     * @return 
+     */
+    public long setTare() {
+        long tareValue = readValue();
+        this.tareOffset = tareValue;
+        
+        return tareValue;
     }
 
     private boolean isReadyForMeasurement() {
