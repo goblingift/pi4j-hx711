@@ -91,11 +91,19 @@ public class Hx711 {
      * load cell!
      * @return 
      */
-    public long setTare() {
+    public long measureAndSetTare() {
         long tareValue = readValue();
         this.tareOffset = tareValue;
         
         return tareValue;
+    }
+    
+    /**
+     * Sets the tare-value of the scale to the given value.
+     * @param tareValue value you´ll get from the scale when its empty.
+     */
+    public void setTareValue(long tareValue) {
+        this.tareOffset = tareValue;
     }
 
     private boolean isReadyForMeasurement() {
