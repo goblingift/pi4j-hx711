@@ -44,14 +44,15 @@ public class Hx711 {
      * Measures the current load of the scale. (Tare offset will be subtracted)
      * Warning! Be sure that you´ve set the tare value before- otherwise your result 
      * will be faulty.
-     * @return the load in grams (g).
+     * @return the load in grams (g), rounded without decimals.
      */
     public long measure() {
 
-        double measuredGrams = ((readValue() - tareOffset) * 0.5 * loadCellMaxWeight) / ((ratedOutput / 1000) * 128 * 8388608);
-        long measuredGramsRounded = Math.round(measuredGrams);
+        double measuredKilogram = ((readValue() - tareOffset) * 0.5 * loadCellMaxWeight) / ((ratedOutput / 1000) * 128 * 8388608);
+        double measuredGrams = measuredKilogram * 1000;
+        long roundedGrams = Math.round(measuredGrams);
         
-        return measuredGramsRounded;
+        return roundedGrams;
     }
     
     
