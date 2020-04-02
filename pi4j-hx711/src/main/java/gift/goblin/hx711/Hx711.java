@@ -60,7 +60,7 @@ public class Hx711 {
      * Get value from the load cell sensor.
      * @return raw digital value returned by the load cell sensor.
      */
-    private long readValue() {
+    public long readValue() {
         
         pinSCK.setState(PinState.LOW);
         while (!isReadyForMeasurement()) {
@@ -94,9 +94,7 @@ public class Hx711 {
      */
     public long measureAndSetTare() {
         long tareValue = readValue();
-        System.out.println("Inside measureAndSetTare.1: tareValue:"  + tareValue);
         this.tareOffset = tareValue;
-        System.out.println("Inside measureAndSetTare.2: tareValue:"  + tareValue);
         
         return tareValue;
     }
